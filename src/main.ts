@@ -2,9 +2,22 @@
 export function setupHole(element: HTMLElement) {
     let size_multiplier = 1.1;
     let size = 20;
+    let swap = false;
 
     const grow = () => {
-        size *= size_multiplier;
+        if ((size > 2000) && (!swap)) {
+            swap = true;
+            element.style.backgroundColor = 'white';
+        }
+        else if ((size < 20) && (swap)) {
+            swap = false;
+            element.style.backgroundColor = 'black';
+        }
+        if (swap) {
+            size /= size_multiplier;
+        } else {
+            size *= size_multiplier;
+        }
         element.style.width = `${size}px`;
         element.style.height = `${size}px`;
         element.style.top = `${336 - (size - 20)/ 2}px`;
